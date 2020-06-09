@@ -13,7 +13,10 @@ agent { label 'master' }
         stage('Liquibase') {
         steps {
         //  checkout([$class: 'GitSCM', branches: [[name: '*/patch-1']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/hari1892/liquibase_dbdevops.git']]])
-          sh 'echo hi'
+          sh 'echo hi' //LIQUIBASE
+          withCredentials([usernamePassword(credentialsId: "LIQUIBASE", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+            sh 'echo $USERNAME $PASSWORD'
+          }
         }
         }
     }
