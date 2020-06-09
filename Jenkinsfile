@@ -12,7 +12,7 @@ def AllConfig = [
     "DEV_DB": "liquibasedev.c8n59c8tfijh.us-east-1.rds.amazonaws.com",
     "UPDATE_FILE": "",
     "ROLLBACK_FILE": "",
-    "UPDATE_DIR": "${env.WORKSPACE}/update",
+    "UPDATE_DIR": "env.WORKSPACE/update",
     "ROLLBACK_DIR": "",
     "DB_NAME": "",
       
