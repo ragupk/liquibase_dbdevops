@@ -38,6 +38,21 @@ agent { label 'master' }
 		ls ${WORKSPACE}/${AllConfig['UPDATE_FILE']}
 		ls ${WORKSPACE}/${AllConfig['ROLLBACK_FILE']}
 		"""
+	withCredentials([usernamePassword(credentialsId: "LIQUIBASE", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {	
+	withEnv([    
+    "UPDATE_FILE=${WORKSPACE}/${AllConfig['UPDATE_FILE']}",
+    "ROLLBACK_FILE=${WORKSPACE}/${AllConfig['ROLLBACK_FILE']}",    
+    "UPDATE_DIR=${WORKSPACE}/${AllConfig['UPDATE_DIR']},
+    "ROLLBACK_DIR=${WORKSPACE}/${AllConfig['ROLLBACK_DIR']},
+    "MYSQLHOST=${mysqlhost}",
+    "MYSQLUSER=${env.USERNAME}", 
+    "MYSQLPASS=${env.PASSWORD}",
+    "DBNAME=${config.dbname}"]) {
+		
+      sh 'sh test.sh'
+
+	}
+}
 		
 	  sh 'exit 1'
           withCredentials([usernamePassword(credentialsId: "LIQUIBASE", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
