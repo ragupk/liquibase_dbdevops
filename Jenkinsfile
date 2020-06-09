@@ -49,7 +49,7 @@ agent { label 'master' }
     "MYSQLPASS=${env.PASSWORD}",
     "DBNAME=${AllConfig['DB_NAME']}"]) {
 		
-      sh 'sh test.sh'
+      sh 'sh upgrade.sh'
 
 	}
 }
