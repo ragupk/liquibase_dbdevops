@@ -17,4 +17,5 @@ agent { label 'master' }
         }
         }
     }
+}
   
