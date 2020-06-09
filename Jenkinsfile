@@ -12,8 +12,8 @@ def AllConfig = [
     "DEV_DB": "liquibasedev.c8n59c8tfijh.us-east-1.rds.amazonaws.com",
     "UPDATE_FILE": "",
     "ROLLBACK_FILE": "",
-    "UPDATE_DIR": "env.WORKSPACE/update",
-    "ROLLBACK_DIR": "",
+    "UPDATE_DIR": "update",
+    "ROLLBACK_DIR": "rollback",
     "DB_NAME": "",
       
 	     ] 
@@ -31,7 +31,7 @@ agent { label 'master' }
         //  checkout([$class: 'GitSCM', branches: [[name: '*/patch-1']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/hari1892/liquibase_dbdevops.git']]])
           println(AllConfig)
           sh "echo ${AllConfig['DEV_DB']}"
-	  sh "echo ${AllConfig['UPDATE_DIR']}"//LIQUIBASE 
+		sh "echo ${WORKSPACE}/${AllConfig['UPDATE_DIR']}"//LIQUIBASE 
 	  sh 'exit 1'
           withCredentials([usernamePassword(credentialsId: "LIQUIBASE", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             sh 'echo $USERNAME $PASSWORD'
