@@ -42,9 +42,9 @@ agent { label 'master' }
 	withEnv([    
     "UPDATE_FILE=${WORKSPACE}/${AllConfig['UPDATE_FILE']}",
     "ROLLBACK_FILE=${WORKSPACE}/${AllConfig['ROLLBACK_FILE']}",    
-    "UPDATE_DIR=${WORKSPACE}/${AllConfig['UPDATE_DIR']},
-    "ROLLBACK_DIR=${WORKSPACE}/${AllConfig['ROLLBACK_DIR']},
-    "MYSQLHOST=${mysqlhost}",
+    "UPDATE_DIR=${WORKSPACE}/${AllConfig['UPDATE_DIR']}",
+    "ROLLBACK_DIR=${WORKSPACE}/${AllConfig['ROLLBACK_DIR']}",
+    "MYSQLHOST=${AllConfig['DEV_DB']}",
     "MYSQLUSER=${env.USERNAME}", 
     "MYSQLPASS=${env.PASSWORD}",
     "DBNAME=${config.dbname}"]) {
