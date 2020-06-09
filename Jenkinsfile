@@ -10,7 +10,7 @@ def AllConfig = [
     "PROD_DB": "",
     "STAGE_DB": "",
     "DEV_DB": "liquibasedev.c8n59c8tfijh.us-east-1.rds.amazonaws.com",
-    "UPDATE_FILE": "update.sh",
+    "UPDATE_FILE": "upgrade.sh",
     "ROLLBACK_FILE": "rollback.sh",
     "UPDATE_DIR": "update",
     "ROLLBACK_DIR": "rollback",
