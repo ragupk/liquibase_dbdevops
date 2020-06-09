@@ -30,7 +30,7 @@ agent { label 'master' }
         steps {
         //  checkout([$class: 'GitSCM', branches: [[name: '*/patch-1']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/hari1892/liquibase_dbdevops.git']]])
           println(AllConfig)
-          sh "echo ${DEV_DB} && exit" //LIQUIBASE
+          sh "echo ${AllConfig['DEV_DB']} && exit" //LIQUIBASE
           withCredentials([usernamePassword(credentialsId: "LIQUIBASE", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             sh 'echo $USERNAME $PASSWORD'
             sh """
