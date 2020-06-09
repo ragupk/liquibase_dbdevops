@@ -1,0 +1,9 @@
+set -x
+echo $UPDATE_FILE
+echo $ROLLBACK_FILE
+echo $UPDATE_DIR
+echo $ROLLBACK_DIR
+echo $MYSQLHOST
+echo $MYSQLUSER
+echo $MYSQLPASS
+echo $DBNAME
