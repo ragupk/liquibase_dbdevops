@@ -18,7 +18,7 @@ agent { label 'master' }
             sh 'echo $USERNAME $PASSWORD'
             sh """
             liquibase --changeLogFile=sample.changelog.sql --username=$USERNAME --password=$PASSWORD --classpath=/opt/liquibase/mysql-connector-java-5.1.49-bin.jar --url=jdbc:mysql://liquibasedev.c8n59c8tfijh.us-east-1.rds.amazonaws.com:3306/liquibasedev update && \
-            echo "\033[1;4;37;42m LiquiBase Execution success \033[0m"
+            echo "\033[42m Liquibase Execution Suceess \033[0m" 
             """
           }
         }
