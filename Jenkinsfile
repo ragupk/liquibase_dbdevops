@@ -47,7 +47,7 @@ agent { label 'master' }
     "MYSQLHOST=${AllConfig['DEV_DB']}",
     "MYSQLUSER=${env.USERNAME}", 
     "MYSQLPASS=${env.PASSWORD}",
-    "DBNAME=${config.dbname}"]) {
+    "DBNAME=${AllConfig['DB_NAME']}"]) {
 		
       sh 'sh test.sh'
 
