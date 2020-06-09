@@ -7,14 +7,15 @@
 // Define variable
 def AllConfig = [   
   
-		"PROD_DB": "",
+    "PROD_DB": "",
     "STAGE_DB": "",
     "DEV_DB": "liquibasedev.c8n59c8tfijh.us-east-1.rds.amazonaws.com",
-    "UPDATE_FILE": "",
-    "ROLLBACK_FILE": "",
+    "UPDATE_FILE": "update.sh",
+    "ROLLBACK_FILE": "rollback.sh",
     "UPDATE_DIR": "update",
     "ROLLBACK_DIR": "rollback",
-    "DB_NAME": "",
+    "DB_NAME": "liquibasedev",
+    "GIT_BRANCH": "patch-1",
       
 	     ] 
 
@@ -31,7 +32,13 @@ agent { label 'master' }
         //  checkout([$class: 'GitSCM', branches: [[name: '*/patch-1']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/hari1892/liquibase_dbdevops.git']]])
           println(AllConfig)
           sh "echo ${AllConfig['DEV_DB']}"
-		sh "echo ${WORKSPACE}/${AllConfig['UPDATE_DIR']}"//LIQUIBASE 
+		sh """
+		ls  ${WORKSPACE}/${AllConfig['UPDATE_DIR']}
+		ls ${WORKSPACE}/${AllConfig['ROLLBACK_DIR']}
+		ls ${WORKSPACE}/${AllConfig['UPDATE_FILE']}
+		ls ${WORKSPACE}/${AllConfig['ROLLBACK_FILE']}
+		"""
+		
 	  sh 'exit 1'
           withCredentials([usernamePassword(credentialsId: "LIQUIBASE", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             sh 'echo $USERNAME $PASSWORD'
