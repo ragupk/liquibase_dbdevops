@@ -80,7 +80,7 @@ agent { label 'master' }
        deleteDir()
        
 	 script {
-		 if(TAG) {
+		 if (env.ENVIRONMENT == 'dev') {
        sh """
           if [ ! -z "$GIT_REPO" ]; 
           then git config --global user.email "hari1892@gmail.com" && git config --global user.name "hari1892" && git clone --depth 1 --branch "$GIT_BRANCH" "$GIT_REPO" tag && { cd tag || exit 1 ; } && 
