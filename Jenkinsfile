@@ -35,7 +35,7 @@ agent { label 'master' }
         steps {
         //  checkout([$class: 'GitSCM', branches: [[name: '*/patch-1']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/hari1892/liquibase_dbdevops.git']]])
          wrap([$class: 'BuildUser']) {
-    def jobUserName = env.BUILD_USER
+    		String jobUserName = env.BUILD_USER
   }
 
 	  println(AllConfig)
