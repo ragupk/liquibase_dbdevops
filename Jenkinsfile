@@ -43,7 +43,9 @@ agent { label 'master' }
 			sh """
 			git clone -b ${TAG} --single-branch ${AllConfig['GIT_REPO']}
 			#git clone ${AllConfig['GIT_REPO']} -b ${AllConfig['GIT_BRANCH']} ${TAG}
-			mv ${AllConfig['GIT_REPO']}/* .
+			dir_name=`ls`
+			mv $dir_name/* .
+			rm -rf $dirname
 			pwd
 			"""		
 			  }
