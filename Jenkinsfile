@@ -42,6 +42,7 @@ agent { label 'master' }
 			sh """
 			git clone ${AllConfig['GIT_REPO']} -b ${AllConfig['GIT_BRANCH']} ${TAG}
 			mv -v ${TAG}/* ../
+			pwd
 			exit 1
 			"""		
 			  }
