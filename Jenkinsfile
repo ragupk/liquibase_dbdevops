@@ -76,9 +76,7 @@ agent { label 'master' }
     "GIT_BRANCH=${AllConfig['GIT_BRANCH']}",
     "DBNAME=${DB_NAME}"]) {
 		
-	input {
-		message "Should we deploy the project?"
-            }	
+	input 'Deploy this?'
       sh 'sh upgrade.sh'
        deleteDir()
        
