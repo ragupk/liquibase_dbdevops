@@ -64,15 +64,7 @@ agent { label 'master' }
     "DBNAME=${AllConfig['DB_NAME']}"]) {
 		
       sh 'sh upgrade.sh'
-	     }
-	}
-}
-	withEnv([
-		"GIT_REPO=${AllConfig['GIT_REPO']}",
-    		"GIT_BRANCH=${AllConfig['GIT_BRANCH']}]) {
-
-		
-	sh """
+       sh """
           if [ ! -z "$GIT_REPO" ]; 
           then git clone --depth 1 --branch "$GIT_BRANCH" "$GIT_REPO" tag && { cd tag || exit 1 ; } && 
           echo "Tagging git commit $env.BUILD_NUMBER with current build" && 
@@ -80,8 +72,16 @@ agent { label 'master' }
           git push -f --tags ; { cd .. || exit 1 ; } && 
           rm -rf tag ; } 
           fi
-          """
-		}
+          """	
+		
+		
+	     }
+	}
+}
+	
+		
+	
+		
 		
 	//  sh 'exit 1'
 		
