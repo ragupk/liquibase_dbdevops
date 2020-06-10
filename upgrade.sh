@@ -23,8 +23,8 @@ url_prefix=`echo $BUILD_URL | sed  -rn 's/(https?)(.*)/\1/p'`
 url_suffix=`echo $BUILD_URL | sed -r 's/https?:\/\///g' | sed 's/$/api\/xml/g'`
 BUILD_USER=`echo $(curl   --silent $url_prefix://$JENKINS_USER:$JENKINS_PASSWORD@$url_suffix  | tr '<' '\n' | egrep '^userId>|^userName>' | sed 's/.*>//g' | sed -e '1s/$/ \//g' | tr '\n' ' ' | cut -d '/' -f2)`
 echo $BUILD_USER
-exit 0
-export BUILD_USER=`echo ${jobUserName}  | sed 's/\s/ /g'`
+
+export BUILD_USER
 
 
 assertExists "$UPDATE_DIR" "Set the file location to update MYSQL."
