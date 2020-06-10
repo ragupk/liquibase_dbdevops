@@ -76,6 +76,9 @@ agent { label 'master' }
     "GIT_BRANCH=${AllConfig['GIT_BRANCH']}",
     "DBNAME=${DB_NAME}"]) {
 		
+	input {
+		message "*****Deploy to ${env.ENVIRONMENT} . Do you want to Continue? ******"
+            }	
       sh 'sh upgrade.sh'
        deleteDir()
        
