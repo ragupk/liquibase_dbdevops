@@ -7,8 +7,8 @@
 // Define variable
 
 //git push -f --tags git@github.com:hari1892/liquibase_dbdevops.git
-
-
+final TAG = env.TAG
+final MYSQL_HOST = env.ENVIRONMENT == 'stage' ? 'stage-db-host' : (env.ENVIRONMENT == 'prod' ? 'prod-db-host' : 'liquibasedev.c8n59c8tfijh.us-east-1.rds.amazonaws.com')
 def AllConfig = [   
   
     "PROD_DB": "",
@@ -35,8 +35,15 @@ agent { label 'master' }
         stage('Liquibase') {
         steps {
         //  checkout([$class: 'GitSCM', branches: [[name: '*/patch-1']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/hari1892/liquibase_dbdevops.git']]])
-        
-          
+                println(TAG)
+		if(TAG) {
+		deleteDir()	
+		sh """
+		git clone ${AllConfig['GIT_REPO']} -b ${AllConfig['GIT_BRANCH'] ${TAG}
+		mv -v ${TAG}/* ../
+		exit 1
+		"""		
+		}
 	  println(AllConfig)
 
           sh "echo ${AllConfig['DEV_DB']}"
@@ -53,7 +60,7 @@ agent { label 'master' }
     "ROLLBACK_FILE=${WORKSPACE}/${AllConfig['ROLLBACK_FILE']}",    
     "UPDATE_DIR=${WORKSPACE}/${AllConfig['UPDATE_DIR']}",
     "ROLLBACK_DIR=${WORKSPACE}/${AllConfig['ROLLBACK_DIR']}",
-    "MYSQLHOST=${AllConfig['DEV_DB']}",
+    "MYSQLHOST=${MYSQL_HOST}",
     "MYSQLUSER=${env.USERNAME}", 
     "MYSQLPASS=${env.PASSWORD}",
     "JENKINS_USER=${env.JENKINS_USERNAME}",
