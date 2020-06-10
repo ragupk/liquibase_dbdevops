@@ -59,7 +59,7 @@ agent { label 'master' }
 		ls ${WORKSPACE}/${AllConfig['ROLLBACK_FILE']}
 		"""
 	withCredentials([usernamePassword(credentialsId: "jenkins_api_token", usernameVariable: 'JENKINS_USERNAME', passwordVariable: 'JENKINS_PASSWORD')]) {
-		withCredentials([usernamePassword(credentialsId: "LIQUIBASE_${env.ENVIRONEMENT}", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {	
+		withCredentials([usernamePassword(credentialsId: "LIQUIBASE_${env.ENVIRONMENT}", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {	
 	withEnv([    
     "UPDATE_FILE=${WORKSPACE}/${AllConfig['UPDATE_FILE']}",
     "ROLLBACK_FILE=${WORKSPACE}/${AllConfig['ROLLBACK_FILE']}",    
