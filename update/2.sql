@@ -1,0 +1,1 @@
+ALTER TABLE `employees` ADD dept VARCHAR(16)  NOT NULL;
