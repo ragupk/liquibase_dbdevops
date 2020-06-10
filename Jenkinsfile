@@ -20,7 +20,7 @@ def AllConfig = [
     "UPDATE_DIR": "update",
     "ROLLBACK_DIR": "rollback",
  //   "DB_NAME": "liquibasedev",
-    "GIT_REPO": "git@github.com:hari1892/liquibase_dbdevops.git",
+    "GIT_REPO": "git@github.com:hari1892/db-deployment.git",
     "GIT_BRANCH": "patch-1",
       
 	     ] 
