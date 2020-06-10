@@ -67,7 +67,11 @@ agent { label 'master' }
 	     }
 	}
 }
-	
+	withEnv([
+		"GIT_REPO=${AllConfig['GIT_REPO']}",
+    		"GIT_BRANCH=${AllConfig['GIT_BRANCH']}]) {
+
+		
 	sh """
           if [ ! -z "$GIT_REPO" ]; 
           then git clone --depth 1 --branch "$GIT_BRANCH" "$GIT_REPO" tag && { cd tag || exit 1 ; } && 
@@ -77,6 +81,7 @@ agent { label 'master' }
           rm -rf tag ; } 
           fi
           """
+		}
 		
 	//  sh 'exit 1'
 		
