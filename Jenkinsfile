@@ -57,6 +57,7 @@ agent { label 'master' }
     "MYSQLPASS=${env.PASSWORD}",
     "JENKINS_USER=${env.JENKINS_USERNAME}",
     "JENKINS_PASSWORD=${env.JENKINS_PASSWORD}",
+    "BUILD_URL=${BUILD_URL}",
     "DBNAME=${AllConfig['DB_NAME']}"]) {
 		
       sh 'sh upgrade.sh'
