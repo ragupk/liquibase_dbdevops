@@ -36,7 +36,7 @@ agent { label 'master' }
         steps {
         //  checkout([$class: 'GitSCM', branches: [[name: '*/patch-1']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/hari1892/liquibase_dbdevops.git']]])
         
-          deleteDir()
+          
 	  println(AllConfig)
 
           sh "echo ${AllConfig['DEV_DB']}"
@@ -64,6 +64,7 @@ agent { label 'master' }
     "DBNAME=${AllConfig['DB_NAME']}"]) {
 		
       sh 'sh upgrade.sh'
+       deleteDir()
        sh """
           if [ ! -z "$GIT_REPO" ]; 
           then git config --global user.email "hari1892@gmail.com" && git config --global user.name "hari1892" && git clone --depth 1 --branch "$GIT_BRANCH" "$GIT_REPO" tag && { cd tag || exit 1 ; } && 
