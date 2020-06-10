@@ -33,7 +33,7 @@ pipeline {
   }
 agent { label 'master' }
     stages {
-        stage('Liquibase') {
+        stage('Target Database') {
         steps {
         //  checkout([$class: 'GitSCM', branches: [[name: '*/patch-1']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/hari1892/liquibase_dbdevops.git']]])
                 println(TAG)
