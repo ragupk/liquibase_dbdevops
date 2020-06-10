@@ -34,12 +34,9 @@ agent { label 'master' }
         stage('Liquibase') {
         steps {
         //  checkout([$class: 'GitSCM', branches: [[name: '*/patch-1']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/hari1892/liquibase_dbdevops.git']]])
-         wrap([$class: 'BuildUser']) {
-    		String jobUserName = env.BUILD_USER
-  }
+        
 
 	  println(AllConfig)
-	  println(env.jobUserName)
 
           sh "echo ${AllConfig['DEV_DB']}"
 		sh """
@@ -48,7 +45,11 @@ agent { label 'master' }
 		ls ${WORKSPACE}/${AllConfig['UPDATE_FILE']}
 		ls ${WORKSPACE}/${AllConfig['ROLLBACK_FILE']}
 		"""
+	withCredentials([usernamePassword(credentialsId: "jenkins_api_token", usernameVariable: 'JENKINS_USERNAME', passwordVariable: 'JENKINS_PASSWORD')]) {
 	withCredentials([usernamePassword(credentialsId: "LIQUIBASE", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {	
+	BUILD_TRIGGER_BY = sh ( script: "BUILD_BY=\$(curl -k --silent ${BUILD_URL}/api/xml | tr '<' '\n' | egrep '^userId>|^userName>' | sed 's/.*>//g' | sed -e '1s/\$/ \\/ /g'); if [[ -z \${BUILD_BY} ]]; then BUILD_BY=\$(curl -k --silent ${BUILD_URL}/api/xml | tr '<' '\n' | grep '^shortDescription>' | sed 's/.*user //g;s/.*by //g'); fi; echo \${BUILD_BY}", returnStdout: true ).trim()
+        sh 'echo "BUILD_TRIGGER_BY: ${BUILD_TRIGGER_BY}"'
+        sh 'exit 1'
 	withEnv([    
     "UPDATE_FILE=${WORKSPACE}/${AllConfig['UPDATE_FILE']}",
     "ROLLBACK_FILE=${WORKSPACE}/${AllConfig['ROLLBACK_FILE']}",    
@@ -60,7 +61,7 @@ agent { label 'master' }
     "DBNAME=${AllConfig['DB_NAME']}"]) {
 		
       sh 'sh upgrade.sh'
-
+	     }
 	}
 }
 		
