@@ -59,6 +59,8 @@ agent { label 'master' }
     "JENKINS_USER=${env.JENKINS_USERNAME}",
     "JENKINS_PASSWORD=${env.JENKINS_PASSWORD}",
     "BUILD_URL=${BUILD_URL}",
+    "GIT_REPO=${AllConfig['GIT_REPO']}",
+    "GIT_BRANCH=${AllConfig['GIT_BRANCH']}",
     "DBNAME=${AllConfig['DB_NAME']}"]) {
 		
       sh 'sh upgrade.sh'
