@@ -66,7 +66,7 @@ agent { label 'master' }
       sh 'sh upgrade.sh'
        sh """
           if [ ! -z "$GIT_REPO" ]; 
-          then git clone --depth 1 --branch "$GIT_BRANCH" "$GIT_REPO" tag && { cd tag || exit 1 ; } && 
+          then git config --global user.name "Jenkins" && git clone --depth 1 --branch "$GIT_BRANCH" "$GIT_REPO" tag && { cd tag || exit 1 ; } && 
           echo "Tagging git commit $env.BUILD_NUMBER with current build" && 
           { git tag -a -f "$env.BUILD_NUMBER" $GIT_BRANCH -m "Built from $GIT_BRANCH" && 
           git push -f --tags ; { cd .. || exit 1 ; } && 
