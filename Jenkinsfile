@@ -8,8 +8,8 @@
 
 //git push -f --tags git@github.com:hari1892/liquibase_dbdevops.git
 final TAG = env.TAG
-final MYSQL_HOST = env.ENVIRONMENT == 'stage' ? 'liquibaseqa.c8n59c8tfijh.us-east-1.rds.amazonaws.com' : (env.ENVIRONMENT == 'prod' ? 'prod-db-host' : 'liquibasedev.c8n59c8tfijh.us-east-1.rds.amazonaws.com')
-final DB_NAME = env.ENVIRONMENT == 'stage' ? 'liquibaseqa' : (env.ENVIRONMENT == 'prod' ? 'prod-db-name' : 'liquibasedev')
+final MYSQL_HOST = env.ENVIRONMENT == 'stage' ? 'liquibaseqa.c8n59c8tfijh.us-east-1.rds.amazonaws.com' : (env.ENVIRONMENT == 'prod' ? 'liquibaseprod.c8n59c8tfijh.us-east-1.rds.amazonaws.com' : 'liquibasedev.c8n59c8tfijh.us-east-1.rds.amazonaws.com')
+final DB_NAME = env.ENVIRONMENT == 'stage' ? 'liquibaseqa' : (env.ENVIRONMENT == 'prod' ? 'liquibaseprod' : 'liquibasedev')
 def AllConfig = [   
   
     "PROD_DB": "",
