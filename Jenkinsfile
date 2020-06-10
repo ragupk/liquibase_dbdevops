@@ -5,9 +5,7 @@
 }
 */
 // Define variable
- wrap([$class: 'BuildUser']) {
-    def jobUserName = env.BUILD_USER
-  }
+
 
 
 
@@ -36,8 +34,12 @@ agent { label 'master' }
         stage('Liquibase') {
         steps {
         //  checkout([$class: 'GitSCM', branches: [[name: '*/patch-1']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/hari1892/liquibase_dbdevops.git']]])
-          println(AllConfig)
-	  println(env.user)
+         wrap([$class: 'BuildUser']) {
+    def jobUserName = env.BUILD_USER
+  }
+
+	  println(AllConfig)
+	  println(env.jobUserName)
 
           sh "echo ${AllConfig['DEV_DB']}"
 		sh """
