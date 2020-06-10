@@ -6,7 +6,7 @@
 */
 // Define variable
 
-
+//git push -f --tags git@github.com:hari1892/liquibase_dbdevops.git
 
 
 def AllConfig = [   
@@ -19,7 +19,7 @@ def AllConfig = [
     "UPDATE_DIR": "update",
     "ROLLBACK_DIR": "rollback",
     "DB_NAME": "liquibasedev",
-    "GIT_REPO": "https://github.com/hari1892/liquibase_dbdevops.git",
+    "GIT_REPO": "git@github.com:hari1892/liquibase_dbdevops.git",
     "GIT_BRANCH": "patch-1",
       
 	     ] 
@@ -70,7 +70,7 @@ agent { label 'master' }
           then git config --global user.email "hari1892@gmail.com" && git config --global user.name "hari1892" && git clone --depth 1 --branch "$GIT_BRANCH" "$GIT_REPO" tag && { cd tag || exit 1 ; } && 
           echo "Tagging git commit $env.BUILD_NUMBER with current build" && 
           { git tag -a -f "$env.BUILD_NUMBER" $GIT_BRANCH -m "Built from $GIT_BRANCH" && 
-          git push -f --tags ; { cd .. || exit 1 ; } && 
+          git push -f --tags $GIT_REPO ; { cd .. || exit 1 ; } && 
           rm -rf tag ; } 
           fi
           """	
