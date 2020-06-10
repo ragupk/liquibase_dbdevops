@@ -8,7 +8,8 @@
 
 //git push -f --tags git@github.com:hari1892/liquibase_dbdevops.git
 final TAG = env.TAG
-final MYSQL_HOST = env.ENVIRONMENT == 'stage' ? 'stage-db-host' : (env.ENVIRONMENT == 'prod' ? 'prod-db-host' : 'liquibasedev.c8n59c8tfijh.us-east-1.rds.amazonaws.com')
+final MYSQL_HOST = env.ENVIRONMENT == 'stage' ? 'liquibaseqa.c8n59c8tfijh.us-east-1.rds.amazonaws.com' : (env.ENVIRONMENT == 'prod' ? 'prod-db-host' : 'liquibasedev.c8n59c8tfijh.us-east-1.rds.amazonaws.com')
+final DB_NAME = env.ENVIRONMENT == 'stage' ? 'liquibaseqa' : (env.ENVIRONMENT == 'prod' ? 'prod-db-name' : 'liquibasedev')
 def AllConfig = [   
   
     "PROD_DB": "",
@@ -18,7 +19,7 @@ def AllConfig = [
     "ROLLBACK_FILE": "rollback.sh",
     "UPDATE_DIR": "update",
     "ROLLBACK_DIR": "rollback",
-    "DB_NAME": "liquibasedev",
+ //   "DB_NAME": "liquibasedev",
     "GIT_REPO": "git@github.com:hari1892/liquibase_dbdevops.git",
     "GIT_BRANCH": "patch-1",
       
@@ -58,7 +59,7 @@ agent { label 'master' }
 		ls ${WORKSPACE}/${AllConfig['ROLLBACK_FILE']}
 		"""
 	withCredentials([usernamePassword(credentialsId: "jenkins_api_token", usernameVariable: 'JENKINS_USERNAME', passwordVariable: 'JENKINS_PASSWORD')]) {
-	withCredentials([usernamePassword(credentialsId: "LIQUIBASE", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {	
+		withCredentials([usernamePassword(credentialsId: "LIQUIBASE_${env.ENVIRONEMENT}", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {	
 	withEnv([    
     "UPDATE_FILE=${WORKSPACE}/${AllConfig['UPDATE_FILE']}",
     "ROLLBACK_FILE=${WORKSPACE}/${AllConfig['ROLLBACK_FILE']}",    
@@ -72,7 +73,7 @@ agent { label 'master' }
     "BUILD_URL=${BUILD_URL}",
     "GIT_REPO=${AllConfig['GIT_REPO']}",
     "GIT_BRANCH=${AllConfig['GIT_BRANCH']}",
-    "DBNAME=${AllConfig['DB_NAME']}"]) {
+    "DBNAME=${DB_NAME}"]) {
 		
       sh 'sh upgrade.sh'
        deleteDir()
