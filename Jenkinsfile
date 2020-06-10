@@ -41,7 +41,7 @@ agent { label 'master' }
 			deleteDir()	
 			sh """
 			git clone ${AllConfig['GIT_REPO']} -b ${AllConfig['GIT_BRANCH']} ${TAG}
-			mv -v ${TAG}/* ../
+			mv ${TAG}/* .
 			pwd
 			exit 1
 			"""		
