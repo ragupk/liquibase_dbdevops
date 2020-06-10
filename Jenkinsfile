@@ -40,8 +40,9 @@ agent { label 'master' }
 			  if(TAG) {
 			deleteDir()	
 			sh """
-			git clone ${AllConfig['GIT_REPO']} -b ${AllConfig['GIT_BRANCH']} ${TAG}
-			mv ${TAG}/* .
+			git clone -b ${TAG} --single-branch ${AllConfig['GIT_REPO']}
+			#git clone ${AllConfig['GIT_REPO']} -b ${AllConfig['GIT_BRANCH']} ${TAG}
+			#mv ${TAG}/* .
 			pwd
 			exit 1
 			"""		
