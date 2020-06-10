@@ -5,6 +5,12 @@
 }
 */
 // Define variable
+ wrap([$class: 'BuildUser']) {
+    def jobUserName = env.BUILD_USER
+  }
+
+
+
 def AllConfig = [   
   
     "PROD_DB": "",
@@ -31,6 +37,8 @@ agent { label 'master' }
         steps {
         //  checkout([$class: 'GitSCM', branches: [[name: '*/patch-1']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/hari1892/liquibase_dbdevops.git']]])
           println(AllConfig)
+	  println(env.user)
+
           sh "echo ${AllConfig['DEV_DB']}"
 		sh """
 		ls  ${WORKSPACE}/${AllConfig['UPDATE_DIR']}
