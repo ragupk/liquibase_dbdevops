@@ -19,6 +19,7 @@ def AllConfig = [
     "UPDATE_DIR": "update",
     "ROLLBACK_DIR": "rollback",
     "DB_NAME": "liquibasedev",
+    "GIT_REPO": "https://github.com/hari1892/liquibase_dbdevops.git",
     "GIT_BRANCH": "patch-1",
       
 	     ] 
@@ -64,6 +65,16 @@ agent { label 'master' }
 	     }
 	}
 }
+	
+	sh """
+          if [ ! -z "$GIT_REPO" ]; 
+          then git clone --depth 1 --branch "$GIT_BRANCH" "$GIT_REPO" tag && { cd tag || exit 1 ; } && 
+          echo "Tagging git commit $env.BUILD_NUMBER with current build" && 
+          { git tag -a -f "$env.BUILD_NUMBER" $GIT_BRANCH -m "Built from $GIT_BRANCH" && 
+          git push -f --tags ; { cd .. || exit 1 ; } && 
+          rm -rf tag ; } 
+          fi
+          """
 		
 	//  sh 'exit 1'
 		
