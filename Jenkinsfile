@@ -36,14 +36,16 @@ agent { label 'master' }
         steps {
         //  checkout([$class: 'GitSCM', branches: [[name: '*/patch-1']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/hari1892/liquibase_dbdevops.git']]])
                 println(TAG)
-		if(TAG) {
-		deleteDir()	
-		sh """
-		git clone ${AllConfig['GIT_REPO']} -b ${AllConfig['GIT_BRANCH']} ${TAG}
-		mv -v ${TAG}/* ../
-		exit 1
-		"""		
-		}
+		script {
+			  if(TAG) {
+			deleteDir()	
+			sh """
+			git clone ${AllConfig['GIT_REPO']} -b ${AllConfig['GIT_BRANCH']} ${TAG}
+			mv -v ${TAG}/* ../
+			exit 1
+			"""		
+			  }
+			}
 	  println(AllConfig)
 
           sh "echo ${AllConfig['DEV_DB']}"
