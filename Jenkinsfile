@@ -33,7 +33,13 @@ pipeline {
   }
 agent { label 'master' }
     stages {
-        stage('Target Database') {
+	    stage('Unit Testing') { 
+		    echo 'Unit testing'
+	    }
+	    stage('Compare schema previous stage') { 
+		    echo 'Comparing schema previous stage'
+	    }
+        stage('Deploying Target Database') {
         steps {
         //  checkout([$class: 'GitSCM', branches: [[name: '*/patch-1']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/hari1892/liquibase_dbdevops.git']]])
                 println(TAG)
