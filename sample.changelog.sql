@@ -8,6 +8,7 @@ create table person (
     address2 varchar(50),
     city varchar(30)
 )
+--rollback  drop table person
 
 --changeset ragu:2
 create table company (
@@ -17,12 +18,12 @@ create table company (
     address2 varchar(50),
     city varchar(30)
 )
+--rollback drop table company
 
 --changeset suresh:3
 alter table person add column country varchar(2)
+--rollback alter table person drop column country
 
---changeset suresh:4
-ALTER TABLE person ADD worksfor_company_id INT;
-
---changeset arun:1
-ALTER TABLE person ADD CONSTRAINT fk_person_worksfor FOREIGN KEY (worksfor_company_id) REFERENCES company(id);
+--changeset arun:4
+insert into company values (1,'Alex','ABCD','TXA','NewYork')
+--rollback delete from company where id=1
