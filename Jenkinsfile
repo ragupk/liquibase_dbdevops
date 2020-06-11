@@ -9,11 +9,7 @@ agent { label 'master' }
         { 
             echo 'Testing'
         }
-        stage('Liquibase:Compare Schema previous stage')
-        { 
-            echo 'deploying target database'
-        }
-        
+                
         stage('Deploying Target Database') {
         steps {
         //  checkout([$class: 'GitSCM', branches: [[name: '*/patch-1']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/hari1892/liquibase_dbdevops.git']]])
@@ -23,7 +19,12 @@ agent { label 'master' }
             echo "\033[1;4;37;42m LiquiBase Execution success \033[0m"
             """
           }
-        }
+         }
+        stage('Compare schema with previous stage')
+       { 
+           echo 'comparing schema'
+         }
+            
         }
     }
 }
